@@ -42,6 +42,7 @@ pushd /home/vagrant/
 	asp checkout imagemagick
 	pushd imagemagick/trunk
 		git checkout -b workshop d6d4293c0ec5250e4148c90592b83b0d48aa4a8e # v6.9.3.8-1
+		cp --no-preserve=mode /vagrant/artifacts/ImageMagick-6.9.3-8.tar.xz .
 	popd
 popd
 -
