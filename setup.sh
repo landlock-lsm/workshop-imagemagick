@@ -29,7 +29,8 @@ pacman -S --noconfirm \
 	the_silver_searcher \
 	tmux \
 	tree \
-	vim
+	vim \
+	wget
 
 systemctl disable --now systemd-time-wait-sync.service
 
