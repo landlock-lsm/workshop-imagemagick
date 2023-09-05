@@ -36,6 +36,7 @@ cp --no-preserve=mode -b /vagrant/home-config/vimrc ~/.vimrc
 
 sudo -u vagrant -s <<--
 pushd /home/vagrant/
+	cp --no-preserve=mode -b /vagrant/home-config/bashrc .bashrc
 	cp --no-preserve=mode -b /vagrant/home-config/vimrc .vimrc
 
 	git config --global user.email "vagrant@workshop-imagemagick"
