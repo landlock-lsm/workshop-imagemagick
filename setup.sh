@@ -23,7 +23,6 @@ pacman -S --noconfirm \
 	bash-completion \
 	cscope \
 	git \
-	openbsd-netcat \
 	pacman-contrib \
 	strace \
 	tmux \
