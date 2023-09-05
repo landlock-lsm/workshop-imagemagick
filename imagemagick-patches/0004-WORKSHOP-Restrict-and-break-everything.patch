@@ -1,0 +1,35 @@
+From a53ca8483286c53e5af584304310a10c64e5269c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+Date: Tue, 5 Sep 2023 10:34:04 +0000
+Subject: [PATCH 4/6] WORKSHOP: Restrict (and break) everything
+
+---
+ wand/convert.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/wand/convert.c b/wand/convert.c
+index 45bd682b425a..42cb98ea1d04 100644
+--- a/wand/convert.c
++++ b/wand/convert.c
+@@ -637,6 +637,18 @@ WandExport MagickBooleanType ConvertImageCommand(ImageInfo *image_info,
+         }
+         printf("LANDLOCK: Ruleset created\n");
+ 
++        // WORKSHOP: step 4
++        if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0)) {
++          perror("LANDLOCK: Failed to restrict privileges");
++        }
++        if (landlock_restrict_self(ruleset_fd, 0)) {
++          perror("LANDLOCK: Failed to enforce ruleset");
++          close(ruleset_fd);
++          return MagickFalse;
++        }
++        close(ruleset_fd);
++        printf("LANDLOCK: Sandboxed!");
++
+         if (image_info->ping != MagickFalse)
+           images=PingImages(image_info,exception);
+         else
+-- 
+2.42.0
+

@@ -1,0 +1,45 @@
+From 1bbb2cf4421fb52d488288180e8c768517f3191f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+Date: Tue, 5 Sep 2023 10:28:31 +0000
+Subject: [PATCH 3/6] WORKSHOP: Create a ruleset
+
+---
+ wand/convert.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/wand/convert.c b/wand/convert.c
+index 66cff5a118d0..45bd682b425a 100644
+--- a/wand/convert.c
++++ b/wand/convert.c
+@@ -45,6 +45,7 @@
+ #include "wand/studio.h"
+ #include "wand/MagickWand.h"
+ #include "wand/mogrify-private.h"
++#include "magick/landlock.h"
+ #include "magick/string-private.h"
+ #include "magick/utility-private.h"
+ 
+@@ -622,6 +623,20 @@ WandExport MagickBooleanType ConvertImageCommand(ImageInfo *image_info,
+           filename=argv[++i];
+         (void) SetImageOption(image_info,"filename",filename);
+         (void) CopyMagickString(image_info->filename,filename,MaxTextExtent);
++
++        // WORKSHOP: step 3
++        struct landlock_ruleset_attr ruleset_attr = {
++          .handled_access_fs = ACCESS_FS_ROUGHLY_READ | ACCESS_FS_ROUGHLY_WRITE,
++        };
++
++        // WORKSHOP: step 3
++        int ruleset_fd = landlock_create_ruleset(&ruleset_attr, sizeof(ruleset_attr), 0);
++        if (ruleset_fd < 0) {
++          perror("LANDLOCK: Failed to create a ruleset");
++          return MagickFalse;
++        }
++        printf("LANDLOCK: Ruleset created\n");
++
+         if (image_info->ping != MagickFalse)
+           images=PingImages(image_info,exception);
+         else
+-- 
+2.42.0
+

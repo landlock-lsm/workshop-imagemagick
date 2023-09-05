@@ -1,0 +1,62 @@
+From 29161cc7ce2aedc61b32b066d2e08cd9c3346d7d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+Date: Tue, 5 Sep 2023 14:00:25 +0000
+Subject: [PATCH 5/6] WORKSHOP: Add static restrictions
+
+Still deny reading input file and writing output file.
+---
+ wand/convert.c | 31 +++++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
+
+diff --git a/wand/convert.c b/wand/convert.c
+index 42cb98ea1d04..f6616021172b 100644
+--- a/wand/convert.c
++++ b/wand/convert.c
+@@ -629,6 +629,9 @@ WandExport MagickBooleanType ConvertImageCommand(ImageInfo *image_info,
+           .handled_access_fs = ACCESS_FS_ROUGHLY_READ | ACCESS_FS_ROUGHLY_WRITE,
+         };
+ 
++        // WORKSHOP: step 5
++        struct landlock_path_beneath_attr path_beneath;
++
+         // WORKSHOP: step 3
+         int ruleset_fd = landlock_create_ruleset(&ruleset_attr, sizeof(ruleset_attr), 0);
+         if (ruleset_fd < 0) {
+@@ -637,6 +640,34 @@ WandExport MagickBooleanType ConvertImageCommand(ImageInfo *image_info,
+         }
+         printf("LANDLOCK: Ruleset created\n");
+ 
++        // WORKSHOP: step 5
++        // For now, ignores non-path filenames like "fd:", see OpenBlob().
++        printf("LANDLOCK: Adding path /usr\n");
++        path_beneath.parent_fd = open("/usr", O_PATH | O_CLOEXEC);
++        path_beneath.allowed_access = ACCESS_FS_ROUGHLY_READ;
++        if (landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH, &path_beneath, 0)) {
++          perror("LANDLOCK: Failed to update the ruleset");
++        }
++        close(path_beneath.parent_fd);
++
++        // WORKSHOP: step 5
++        printf("LANDLOCK: Adding path /dev/null\n");
++        path_beneath.parent_fd = open("/dev/null", O_PATH | O_CLOEXEC);
++        path_beneath.allowed_access = LANDLOCK_ACCESS_FS_READ_FILE;
++        if (landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH, &path_beneath, 0)) {
++          perror("LANDLOCK: Failed to update the ruleset");
++        }
++        close(path_beneath.parent_fd);
++
++        // WORKSHOP: step 5
++        printf("LANDLOCK: Adding path /tmp\n");
++        path_beneath.parent_fd = open("/tmp", O_PATH | O_CLOEXEC);
++        path_beneath.allowed_access = ACCESS_FS_ROUGHLY_READ | ACCESS_FS_ROUGHLY_WRITE;
++        if (landlock_add_rule(ruleset_fd, LANDLOCK_RULE_PATH_BENEATH, &path_beneath, 0)) {
++          perror("LANDLOCK: Failed to update the ruleset");
++        }
++        close(path_beneath.parent_fd);
++
+         // WORKSHOP: step 4
+         if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0)) {
+           perror("LANDLOCK: Failed to restrict privileges");
+-- 
+2.42.0
+
