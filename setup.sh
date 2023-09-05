@@ -42,6 +42,8 @@ pushd /home/vagrant/
 	git config --global user.email "vagrant@workshop-imagemagick"
 	git config --global user.name "Workshop"
 
+	ssh-keygen -t ecdsa -f ~/.ssh/id_ecdsa -N ''
+
 	asp update
 	asp checkout imagemagick
 	pushd imagemagick/trunk
