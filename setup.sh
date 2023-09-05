@@ -22,9 +22,11 @@ pacman -S --noconfirm \
 	base-devel \
 	bash-completion \
 	cscope \
+	fd \
 	git \
 	pacman-contrib \
 	strace \
+	the_silver_searcher \
 	tmux \
 	tree \
 	vim
