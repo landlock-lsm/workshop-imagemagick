@@ -7,7 +7,11 @@
 # you're doing.
 Vagrant.configure("2") do |config|
   # Force the use of libvirt as a VM provider.
-  config.vm.provider "libvirt"
+  config.vm.provider "libvirt" do |v|
+    v.memory = 1024
+    v.cpus = 2
+  end
+
   # Archlinux image and version
   config.vm.box = "archlinux/archlinux"
   config.vm.box_version = "20230815.172076"
