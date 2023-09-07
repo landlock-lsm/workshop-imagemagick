@@ -1,14 +1,19 @@
-# Landlock tutorial to patch lighttpd
+# Landlock workshop to sandbox ImageMagick
 
-Network access-control is well covered by different kind of firewalls, but for some use cases it may be interesting to tie the semantic of an application instance and its configuration to a set of rules.
-For instance, only some processes of web browsers or web servers may legitimately be allowed to share data over the network, while other processes should be blocked.
-Linux provides some mechanisms to do so, including SELinux or AppArmor, but until now it has not been possible for applications to safely sandbox themselves.
+The goal of this workshop is to illustrate how sandboxing can mitigate vulnerabilities.
+To showcase usefulness of sandboxing, we'll use an old and vulnerable version of [ImageMagick](https://imagemagick.org/)
+which as long been fixed, but all kind of applications could still be impacted by [similar vulnerabilities](https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=RCE).
 
-Slides: [How to sandbox an application with Landlock](How%20to%20sandbox%20an%20application%20with%20Landlock.pdf)
+The [CVE-2016-3714](https://nvd.nist.gov/vuln/detail/CVE-2016-3714) vulnerability,
+aka [ImageTragick](https://imagetragick.com/),
+is caused by an insufficient shell characters filtering that can lead to (potentially remote) code execution.
+Thanks to [Landlock](https://landlock.io/),
+we'll restrict access to the `convert` tool before it can get exploited by opening a malicious file,
+and then mitigate the impact of such vulnerability.
 
 ## Install tools
 
-For this tutorial, we will use Vagrant to set up a dedicated virtual machine (VM).
+For this workshop, we will use Vagrant to set up a dedicated virtual machine (VM).
 Run the following commands as **root** according to your Linux distribution.
 
 ### Arch Linux
@@ -57,8 +62,8 @@ su $USER
 
 As an **unprivileged user**, clone this repository:
 ```bash
-git clone https://github.com/landlock-lsm/tuto-lighttpd
-cd tuto-lighttpd
+git clone https://github.com/landlock-lsm/workshop-imagemagick
+cd workshop-imagemagick
 ```
 
 The Vagrant VM provisioning may install 2 vagrant plugins on the host system, other commands are executed in the VM.
@@ -70,6 +75,13 @@ vagrant up
 A virbr network interface will be created.
 On most systems this should work as is, but otherwise we may need to allow inbound connections (and routing) from the loopback interface according to host's firewall rules.
 
+## Create a snapshot of the VM
+
+Just in case...
+```bash
+vagrant snapshot push
+```
+
 ## Connect to the VM
 
 ```bash
@@ -78,17 +90,15 @@ vagrant ssh
 
 ## Test the VM
 
-On the VM, start the lighttpd service and check the logs:
+On the VM, run an ImageMagick command to test the attack:
 ```bash
-sudo systemctl start lighttpd.service
-sudo journalctl -fu lighttpd.service &
-sudo tail -F /var/log/lighttpd/error.log &
+convert /vagrant/exploit/malicious.mvg out.png
 ```
 
-Use the `getlink.sh` script to get the local website link:
-```bash
-/vagrant/getlink.sh
-```
+You should see the VM's SSH private key.
 
-Visit the link with a web browser to validate that it works.
-This link may change each time the VM starts.
+On the host system, check if you can copy files from the VM:
+```bash
+vagrant scp :out.png .
+xdg-open out.png
+```
