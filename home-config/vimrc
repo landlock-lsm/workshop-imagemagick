@@ -1,7 +1,7 @@
 unlet! skip_defaults_vim
 runtime! defaults.vim
 
-# ImageMagick style:
+" ImageMagick style:
 set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
 
 colorscheme desert
