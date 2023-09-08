@@ -6,6 +6,8 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
+  config.vm.hostname = "workshop-imagemagick"
+
   # Force the use of libvirt as a VM provider.
   config.vm.provider "libvirt" do |v|
     v.memory = 1024
