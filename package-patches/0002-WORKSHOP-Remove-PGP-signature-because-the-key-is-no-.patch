@@ -1,0 +1,35 @@
+From 9e8ef13788866e60ed46a9202c43e5ad3b1a974f Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+Date: Wed, 21 Jun 2023 13:59:28 +0200
+Subject: [PATCH 2/3] WORKSHOP: Remove PGP signature because the key is no
+ longer available
+
+We would need to update the keyring, which is overkill for this
+workshop.
+
+The archive checksum is still checked though.
+---
+ trunk/PKGBUILD | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/trunk/PKGBUILD b/trunk/PKGBUILD
+index 9204960e0f1c..cc9e8f41bade 100644
+--- a/trunk/PKGBUILD
++++ b/trunk/PKGBUILD
+@@ -11,12 +11,10 @@ license=('custom')
+ makedepends=('libltdl' 'lcms2' 'libxt' 'fontconfig' 'libxext' 'ghostscript'
+              'openexr' 'libwmf' 'librsvg' 'libxml2' 'liblqr' 'openjpeg2'
+              'opencl-headers' 'ocl-icd' 'libwebp' 'subversion' 'glu')
+-source=(http://www.imagemagick.org/download/ImageMagick-${pkgver%.*}-${pkgver##*.}.tar.xz{,.asc}
++source=(http://www.imagemagick.org/download/ImageMagick-${pkgver%.*}-${pkgver##*.}.tar.xz
+         perlmagick.rpath.patch)
+ sha1sums=('ab3a16e1ac223153a76c98d20ed6dda98116d91a'
+-          'SKIP'
+           'e143cf9d530fabf3b58023899b5cc544ba93daec')
+-validpgpkeys=('D8272EF51DA223E4D05B466989AB63D48277377A')
+ 
+ prepare() {
+   cd ImageMagick-${pkgver%.*}-${pkgver##*.}
+-- 
+2.42.0
+

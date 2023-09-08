@@ -38,11 +38,16 @@ sudo -u vagrant -s <<--
 pushd /home/vagrant/
 	cp --no-preserve=mode -b /vagrant/home-config/vimrc .vimrc
 
+	git config --global user.email "vagrant@workshop-imagemagick"
+	git config --global user.name "Workshop"
+
 	asp update
 	asp checkout imagemagick
 	pushd imagemagick/trunk
 		git checkout -b workshop d6d4293c0ec5250e4148c90592b83b0d48aa4a8e # v6.9.3.8-1
 		cp --no-preserve=mode /vagrant/artifacts/ImageMagick-6.9.3-8.tar.xz .
+		git am /vagrant/package-patches/*.patch
+		makepkg -si --noconfirm
 	popd
 popd
 -
