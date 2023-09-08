@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
   # Archlinux image and version
   config.vm.box = "archlinux/archlinux"
   config.vm.box_version = "20230815.172076"
-  config.vagrant.plugins = ["vagrant-libvirt", "vagrant-scp", "vagrant-reload"]
+  config.vagrant.plugins = ["vagrant-libvirt", "vagrant-scp"]
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -21,7 +21,6 @@ Vagrant.configure("2") do |config|
   # Synchronize provision scripts and data into /vagrant
   config.vm.synced_folder ".", "/vagrant", type: "rsync"
 
-  # Execute VM provisionning and reboot in order to use the new kernel.
+  # Execute VM provisioning.
   config.vm.provision "shell", path: "setup.sh", env: {"VAGRANT_PROVISIONING" => "1"}
-  config.vm.provision :reload
 end

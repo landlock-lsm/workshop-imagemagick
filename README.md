@@ -61,8 +61,8 @@ git clone https://github.com/landlock-lsm/tuto-lighttpd
 cd tuto-lighttpd
 ```
 
-The Vagrant VM provisioning will install 3 vagrant plugins on the host system, other commands are executed in the VM.
-After plugins installation Vagrant will ask to execute the same command again to proceed the VM configuration:
+The Vagrant VM provisioning may install 2 vagrant plugins on the host system, other commands are executed in the VM.
+After plugins installation (if any) Vagrant may ask to execute the same command again to proceed the VM configuration:
 ```bash
 vagrant up
 ```
