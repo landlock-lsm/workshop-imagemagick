@@ -22,6 +22,6 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder ".", "/vagrant", type: "rsync"
 
   # Execute VM provisionning and reboot in order to use the new kernel.
-  config.vm.provision "shell", path: "setup.sh"
+  config.vm.provision "shell", path: "setup.sh", env: {"VAGRANT_PROVISIONING" => "1"}
   config.vm.provision :reload
 end

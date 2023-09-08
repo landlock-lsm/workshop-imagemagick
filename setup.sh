@@ -2,8 +2,15 @@
 # SPDX-License-Identifier: BSD-3-Clause
 #
 # Landlock workshop to sandbox ImageMagick
+#
+# This will automatically be executed by Vagrant while provisioning the VM.
 
 set -ueo pipefail nounset errexit
+
+if [[ -z "${VAGRANT_PROVISIONING:-}" ]]; then
+	echo "This script should only be used by Vagrant provisioning." >&2
+	exit 1
+fi
 
 cd "$(dirname -- "$(readlink -f -- "${BASH_SOURCE[0]}")")"
 
