@@ -2,7 +2,7 @@
 
 The goal of this workshop is to illustrate how sandboxing can mitigate vulnerabilities.
 To showcase usefulness of sandboxing, we'll use an old and vulnerable version of [ImageMagick](https://imagemagick.org/)
-which as long been fixed, but all kind of applications could still be impacted by [similar vulnerabilities](https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=RCE).
+which has long been fixed, but all kind of applications could still be impacted by [similar vulnerabilities](https://cve.mitre.org/cgi-bin/cvekey.cgi?keyword=RCE).
 
 The [CVE-2016-3714](https://nvd.nist.gov/vuln/detail/CVE-2016-3714) vulnerability,
 aka [ImageTragick](https://imagetragick.com/),
