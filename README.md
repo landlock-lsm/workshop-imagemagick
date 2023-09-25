@@ -8,7 +8,7 @@ The [CVE-2016-3714](https://nvd.nist.gov/vuln/detail/CVE-2016-3714) vulnerabilit
 aka [ImageTragick](https://imagetragick.com/),
 is caused by an insufficient shell characters filtering that can lead to (potentially remote) code execution.
 Thanks to [Landlock](https://landlock.io/),
-we'll restrict access to the `convert` tool before it can get exploited by opening a malicious file,
+we'll restrict the `convert` tool's access rights before it can get exploited by opening a malicious file,
 and then mitigate the impact of such vulnerability.
 
 ## Install tools
