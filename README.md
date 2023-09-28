@@ -104,3 +104,5 @@ On the host system, check if you can copy files from the VM:
 vagrant scp :out.png .
 xdg-open out.png
 ```
+
+You should see a white square.
