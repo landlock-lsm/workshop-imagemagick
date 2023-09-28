@@ -11,6 +11,8 @@ Thanks to [Landlock](https://landlock.io/),
 we'll restrict the `convert` tool's access rights before it can get exploited by opening a malicious file,
 and then mitigate the impact of such vulnerability.
 
+See the [Linux Security Summit slides dedicated to this workshop](https://landlock.io/talks/2023-09-21_landlock-imagemagick-lss-eu.pdf).
+
 ## Install tools
 
 For this workshop, we will use Vagrant to set up a dedicated virtual machine (VM).
