@@ -1,7 +1,7 @@
-From 7dad9dd0b796745df3c65966b2cce3d74dc1a8ba Mon Sep 17 00:00:00 2001
+From 11641b4911f290193f4f2bf60928c6bf26204635 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 Date: Fri, 1 Sep 2023 13:08:19 +0200
-Subject: [PATCH 3/3] WORKSHOP: Disable jpeg to avoid build error
+Subject: [PATCH 3/4] WORKSHOP: Disable jpeg to avoid build error
 
 The API changed:
 
@@ -26,14 +26,14 @@ coders/jpeg.c:2318:61: error: format not a string literal and no format argument
  2318 |           CoderWarning,"LosslessToLossyJPEGConversion",image->filename);
       |                                                        ~~~~~^~~~~~~~~~
 ---
- trunk/PKGBUILD | 2 +-
+ PKGBUILD | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/trunk/PKGBUILD b/trunk/PKGBUILD
-index cc9e8f41bade..c712fb3d59a2 100644
---- a/trunk/PKGBUILD
-+++ b/trunk/PKGBUILD
-@@ -33,7 +33,7 @@ build() {
+diff --git a/PKGBUILD b/PKGBUILD
+index 607c1199a080..ee711637a517 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -32,7 +32,7 @@ build() {
      --with-webp --with-gslib --with-gs-font-dir=/usr/share/fonts/Type1 \
      --with-perl --with-perl-options="INSTALLDIRS=vendor" --with-lqr --with-rsvg \
      --enable-opencl --with-openjp2 --without-gvc --without-djvu --without-autotrace \
@@ -43,5 +43,5 @@ index cc9e8f41bade..c712fb3d59a2 100644
  }
  
 -- 
-2.42.0
+2.43.0
 

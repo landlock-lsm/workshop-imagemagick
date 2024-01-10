@@ -18,7 +18,6 @@ set -x
 
 pacman -Sy --noconfirm
 pacman -S --noconfirm \
-	asp \
 	base-devel \
 	bash-completion \
 	cscope \
@@ -46,10 +45,9 @@ pushd /home/vagrant/
 
 	ssh-keygen -t ecdsa -f ~/.ssh/id_ecdsa -N ''
 
-	asp update
-	asp checkout imagemagick
-	pushd imagemagick/trunk
-		git checkout -b workshop d6d4293c0ec5250e4148c90592b83b0d48aa4a8e # v6.9.3.8-1
+	git clone https://gitlab.archlinux.org/archlinux/packaging/packages/imagemagick.git
+	pushd imagemagick
+		git checkout -b workshop 9f98187ccfdb18d888dbd3f685f220a6dc729dcf # 6.9.3.8-1
 		cp --no-preserve=mode /vagrant/artifacts/ImageMagick-6.9.3-8.tar.xz .
 		git am /vagrant/package-patches/*.patch
 		makepkg -si --noconfirm
