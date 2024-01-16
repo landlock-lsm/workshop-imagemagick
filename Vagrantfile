@@ -16,7 +16,7 @@ Vagrant.configure("2") do |config|
 
   # Archlinux image and version
   config.vm.box = "archlinux/archlinux"
-  config.vm.box_version = "20230815.172076"
+  config.vm.box_version = "20240115.207158"
   config.vagrant.plugins = ["vagrant-libvirt", "vagrant-scp"]
 
   # Disable automatic box update checking. If you disable this, then

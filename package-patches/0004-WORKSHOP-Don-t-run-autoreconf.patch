@@ -1,0 +1,33 @@
+From c5886d377e9059450095f0608f6d08ba4b1c7e52 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+Date: Tue, 16 Jan 2024 11:35:27 +0100
+Subject: [PATCH 4/4] WORKSHOP: Don't run autoreconf
+
+It doesn't work anymore, mainly because of the undefined
+_AC_SYS_LARGEFILE_MACRO_VALUE.  Let's use the configure file from the
+source instead.
+---
+ PKGBUILD | 7 -------
+ 1 file changed, 7 deletions(-)
+
+diff --git a/PKGBUILD b/PKGBUILD
+index ee711637a517..9de6dbf76675 100644
+--- a/PKGBUILD
++++ b/PKGBUILD
+@@ -15,13 +15,6 @@ source=(http://www.imagemagick.org/download/ImageMagick-${pkgver%.*}-${pkgver##*
+ sha1sums=('ab3a16e1ac223153a76c98d20ed6dda98116d91a'
+           'e143cf9d530fabf3b58023899b5cc544ba93daec')
+ 
+-prepare() {
+-  cd ImageMagick-${pkgver%.*}-${pkgver##*.}
+-  sed '/AC_PATH_XTRA/d' -i configure.ac
+-  autoreconf --force --install
+-  patch -p0 -i "${srcdir}/perlmagick.rpath.patch"
+-}
+-
+ build() {
+   cd ImageMagick-${pkgver%.*}-${pkgver##*.}
+   [[ $CARCH = "i686" ]] && EXTRAOPTS="--with-gcc-arch=i686"
+-- 
+2.43.0
+

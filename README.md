@@ -74,6 +74,10 @@ After plugins installation (if any) Vagrant may ask to execute the same command 
 vagrant up
 ```
 
+This may download a VM image (~560 MB) and packages (~110 MB).
+After the download is complete, it should take less than 6 minutes to install and build the requirements.
+It is OK to see a lot of build warnings because the ImageMagick source code is old compared to the build tools.
+
 A virbr network interface will be created.
 On most systems this should work as is, but otherwise we may need to allow inbound connections (and routing) from the loopback interface according to host's firewall rules.
 
