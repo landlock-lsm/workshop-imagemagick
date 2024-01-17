@@ -23,6 +23,7 @@ pacman -S --noconfirm \
 	cscope \
 	fd \
 	git \
+	less \
 	pacman-contrib \
 	strace \
 	the_silver_searcher \
