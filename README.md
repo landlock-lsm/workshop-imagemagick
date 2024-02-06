@@ -74,6 +74,11 @@ After plugins installation (if any) Vagrant may ask to execute the same command 
 vagrant up
 ```
 
+If the Vagrant plugin installation failed because of a dependency issue, you might want to run this:
+```bash
+VAGRANT_DISABLE_STRICT_DEPENDENCY_ENFORCEMENT=1 vagrant plugin install --local
+```
+
 This may download a VM image (~560 MB) and packages (~110 MB).
 After the download is complete, it should take less than 6 minutes to install and build the requirements.
 It is OK to see a lot of build warnings because the ImageMagick source code is old compared to the build tools.
