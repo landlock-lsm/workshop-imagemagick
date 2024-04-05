@@ -25,7 +25,7 @@ index 45bd682b425a..42cb98ea1d04 100644
 +          return MagickFalse;
 +        }
 +        close(ruleset_fd);
-+        printf("LANDLOCK: Sandboxed!");
++        printf("LANDLOCK: Sandboxed!\n");
 +
          if (image_info->ping != MagickFalse)
            images=PingImages(image_info,exception);
