@@ -14,6 +14,8 @@ fi
 
 cd "$(dirname -- "$(readlink -f -- "${BASH_SOURCE[0]}")")"
 
+LINUX_VERSION="6.7.12+bpo"
+
 set -x
 
 apt purge --yes \
@@ -29,6 +31,7 @@ apt install --yes --no-install-recommends \
 	git \
 	htop \
 	libpng-dev \
+	linux-{image,headers}-${LINUX_VERSION}-cloud-amd64 \
 	make \
 	pkg-config \
 	silversearcher-ag \
@@ -36,6 +39,8 @@ apt install --yes --no-install-recommends \
 	tmux \
 	tree \
 	vim
+
+cp --no-preserve=mode -b /usr/src/linux-headers-${LINUX_VERSION}-common/include/uapi/linux/landlock.h /usr/include/linux/
 
 cp --no-preserve=mode -b /vagrant/home-config/vimrc ~/.vimrc
 
@@ -61,3 +66,6 @@ pushd /home/vagrant/
 	popd
 popd
 -
+
+# Use the newly installed kernel.
+reboot
