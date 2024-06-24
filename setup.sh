@@ -16,23 +16,26 @@ cd "$(dirname -- "$(readlink -f -- "${BASH_SOURCE[0]}")")"
 
 set -x
 
-pacman -Sy --noconfirm
-pacman -S --noconfirm \
-	base-devel \
-	bash-completion \
-	cscope \
-	fd \
-	git \
-	less \
-	pacman-contrib \
-	strace \
-	the_silver_searcher \
-	tmux \
-	tree \
-	vim \
+apt purge --yes \
 	wget
 
-systemctl disable --now systemd-time-wait-sync.service
+apt autoremove --yes
+apt update
+apt upgrade --yes
+
+apt install --yes --no-install-recommends \
+	cscope \
+	gcc \
+	git \
+	htop \
+	libpng-dev \
+	make \
+	pkg-config \
+	silversearcher-ag \
+	strace \
+	tmux \
+	tree \
+	vim
 
 cp --no-preserve=mode -b /vagrant/home-config/vimrc ~/.vimrc
 
@@ -46,12 +49,15 @@ pushd /home/vagrant/
 
 	ssh-keygen -t ecdsa -f ~/.ssh/id_ecdsa -N ''
 
-	git clone https://gitlab.archlinux.org/archlinux/packaging/packages/imagemagick.git
-	pushd imagemagick
-		git checkout -b workshop 9f98187ccfdb18d888dbd3f685f220a6dc729dcf # 6.9.3.8-1
-		cp --no-preserve=mode /vagrant/artifacts/ImageMagick-6.9.3-8.tar.xz .
-		git am /vagrant/package-patches/*.patch
-		makepkg -si --noconfirm
+	mkdir src
+	tar -xf /vagrant/artifacts/ImageMagick-6.9.3-8.tar.xz -C src
+	pushd src/ImageMagick-6.9.3-8
+		/vagrant/imagemagick-patches/init-repo.sh
+		git checkout -b solution
+		git am /vagrant/imagemagick-patches/*.patch
+		git checkout master
+		./configure
+		make -j$(nproc)
 	popd
 popd
 -
