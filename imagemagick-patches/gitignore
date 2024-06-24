@@ -23,6 +23,7 @@
 /magick/magick-baseconfig.h
 /magick/version.h
 /perl-sources
+/utilities/*.1
 /utilities/animate
 /utilities/compare
 /utilities/composite
