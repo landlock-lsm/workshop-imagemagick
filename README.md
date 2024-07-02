@@ -11,8 +11,6 @@ Thanks to [Landlock](https://landlock.io/),
 we'll restrict the `convert` tool's access rights before it can get exploited by opening a malicious file,
 and then mitigate the impact of such vulnerability.
 
-See the slides dedicated to this [Landlock workshop](https://landlock.io/talks/2024-01-22_landlock-workshop.pdf).
-
 ## Install tools
 
 For this workshop, we will use Vagrant to set up a dedicated virtual machine (VM).
