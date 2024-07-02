@@ -33,6 +33,7 @@ apt install --yes --no-install-recommends \
 	libpng-dev \
 	linux-{image,headers}-${LINUX_VERSION}-cloud-amd64 \
 	make \
+	manpages-dev \
 	pkg-config \
 	silversearcher-ag \
 	strace \
