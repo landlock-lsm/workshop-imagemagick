@@ -14,7 +14,6 @@ Vagrant.configure("2") do |config|
     v.cpus = 2
   end
 
-  # Archlinux image and version
   config.vm.box = "debian/bookworm64"
   config.vagrant.plugins = ["vagrant-libvirt", "vagrant-scp"]
 

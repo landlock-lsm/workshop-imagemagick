@@ -77,8 +77,8 @@ If the Vagrant plugin installation failed because of a dependency issue, you mig
 VAGRANT_DISABLE_STRICT_DEPENDENCY_ENFORCEMENT=1 vagrant plugin install --local
 ```
 
-This may download a VM image (~560 MB) and packages (~110 MB).
-After the download is complete, it should take less than 6 minutes to install and build the requirements.
+This may download a VM image (~330 MB) and packages (~230 MB).
+After the download is complete, it should take less than 4 minutes to install and build the requirements.
 It is OK to see a lot of build warnings because the ImageMagick source code is old compared to the build tools.
 
 A virbr network interface will be created.
