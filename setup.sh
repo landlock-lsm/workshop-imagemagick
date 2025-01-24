@@ -14,8 +14,6 @@ fi
 
 cd "$(dirname -- "$(readlink -f -- "${BASH_SOURCE[0]}")")"
 
-LINUX_VERSION="6.7.12+bpo"
-
 set -x
 
 apt purge --yes \
@@ -31,7 +29,7 @@ apt install --yes --no-install-recommends \
 	git \
 	htop \
 	libpng-dev \
-	linux-{image,headers}-${LINUX_VERSION}-cloud-amd64 \
+	linux-{image,headers}-amd64/bookworm-backports \
 	make \
 	manpages-dev \
 	pkg-config \
@@ -41,7 +39,7 @@ apt install --yes --no-install-recommends \
 	tree \
 	vim
 
-cp --no-preserve=mode -b /usr/src/linux-headers-${LINUX_VERSION}-common/include/uapi/linux/landlock.h /usr/include/linux/
+cp --no-preserve=mode -b /usr/src/linux-headers-*-common/include/uapi/linux/landlock.h /usr/include/linux/
 
 cp --no-preserve=mode -b /vagrant/home-config/vimrc ~/.vimrc
 
