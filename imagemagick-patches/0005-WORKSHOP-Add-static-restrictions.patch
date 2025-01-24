@@ -1,6 +1,6 @@
-From 29161cc7ce2aedc61b32b066d2e08cd9c3346d7d Mon Sep 17 00:00:00 2001
+From 4ccfc600f2191de172da280d0e538415e7ca9b7a Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-Date: Tue, 5 Sep 2023 14:00:25 +0000
+Date: Fri, 24 Jan 2025 11:07:21 +0100
 Subject: [PATCH 5/6] WORKSHOP: Add static restrictions
 
 Still deny reading input file and writing output file.
@@ -9,7 +9,7 @@ Still deny reading input file and writing output file.
  1 file changed, 31 insertions(+)
 
 diff --git a/wand/convert.c b/wand/convert.c
-index 42cb98ea1d04..f6616021172b 100644
+index ed1d95558e19..ed2ee9ee65ce 100644
 --- a/wand/convert.c
 +++ b/wand/convert.c
 @@ -629,6 +629,9 @@ WandExport MagickBooleanType ConvertImageCommand(ImageInfo *image_info,
@@ -58,5 +58,5 @@ index 42cb98ea1d04..f6616021172b 100644
          if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0)) {
            perror("LANDLOCK: Failed to restrict privileges");
 -- 
-2.42.0
+2.48.1
 

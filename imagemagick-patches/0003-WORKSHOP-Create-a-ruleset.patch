@@ -1,6 +1,6 @@
-From 1bbb2cf4421fb52d488288180e8c768517f3191f Mon Sep 17 00:00:00 2001
+From 56e43cff20d7ac5799b500f3d40b78e278ddc810 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-Date: Tue, 5 Sep 2023 10:28:31 +0000
+Date: Fri, 24 Jan 2025 11:07:21 +0100
 Subject: [PATCH 3/6] WORKSHOP: Create a ruleset
 
 ---
@@ -41,5 +41,5 @@ index 66cff5a118d0..45bd682b425a 100644
            images=PingImages(image_info,exception);
          else
 -- 
-2.42.0
+2.48.1
 

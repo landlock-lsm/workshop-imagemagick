@@ -1,6 +1,6 @@
-From a53ca8483286c53e5af584304310a10c64e5269c Mon Sep 17 00:00:00 2001
+From 7afef60f6ab135c9879b080d7a2308bb7d70a7d4 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-Date: Tue, 5 Sep 2023 10:34:04 +0000
+Date: Fri, 24 Jan 2025 11:07:21 +0100
 Subject: [PATCH 4/6] WORKSHOP: Restrict (and break) everything
 
 ---
@@ -8,7 +8,7 @@ Subject: [PATCH 4/6] WORKSHOP: Restrict (and break) everything
  1 file changed, 12 insertions(+)
 
 diff --git a/wand/convert.c b/wand/convert.c
-index 45bd682b425a..42cb98ea1d04 100644
+index 45bd682b425a..ed1d95558e19 100644
 --- a/wand/convert.c
 +++ b/wand/convert.c
 @@ -637,6 +637,18 @@ WandExport MagickBooleanType ConvertImageCommand(ImageInfo *image_info,
@@ -31,5 +31,5 @@ index 45bd682b425a..42cb98ea1d04 100644
            images=PingImages(image_info,exception);
          else
 -- 
-2.42.0
+2.48.1
 

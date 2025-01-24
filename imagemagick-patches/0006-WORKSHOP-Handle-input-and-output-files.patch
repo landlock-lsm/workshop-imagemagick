@@ -1,6 +1,6 @@
-From 764bb697a3cf59ff8716f7f5578db13efef11b31 Mon Sep 17 00:00:00 2001
+From d645f8b804f4f0b6a66d42d8b4847f02853db49f Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-Date: Tue, 5 Sep 2023 14:30:21 +0000
+Date: Fri, 24 Jan 2025 11:07:21 +0100
 Subject: [PATCH 6/6] WORKSHOP: Handle input and output files
 
 ---
@@ -8,7 +8,7 @@ Subject: [PATCH 6/6] WORKSHOP: Handle input and output files
  1 file changed, 23 insertions(+)
 
 diff --git a/wand/convert.c b/wand/convert.c
-index f6616021172b..8eb8e78ec495 100644
+index ed2ee9ee65ce..6e5acd420bf7 100644
 --- a/wand/convert.c
 +++ b/wand/convert.c
 @@ -48,6 +48,8 @@
@@ -49,5 +49,5 @@ index f6616021172b..8eb8e78ec495 100644
          if (prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0)) {
            perror("LANDLOCK: Failed to restrict privileges");
 -- 
-2.42.0
+2.48.1
 
