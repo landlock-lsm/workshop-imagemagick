@@ -2,6 +2,6 @@
 alias l='ls -lah'
 alias make='make -j$(nproc)'
 
-PATH="${HOME}/src/ImageMagick-6.9.3-8/utilities:${PATH}"
+PATH="${HOME}/workshop/src/ImageMagick-6.9.3-8/utilities:${PATH}"
 
 export EDITOR="vim"

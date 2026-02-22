@@ -13,104 +13,49 @@ and then mitigate the impact of such vulnerability.
 
 See the slides dedicated to this [Landlock workshop](https://landlock.io/talks/2024-07-03_landlock-pts-workshop.pdf).
 
-## Install tools
+## Requirements
 
-For this workshop, we will use Vagrant to set up a dedicated virtual machine (VM).
-Run the following commands as **root** according to your Linux distribution.
+- [Docker](https://docs.docker.com/engine/install/)
+- `/dev/kvm` accessible (KVM support is required for virtme-ng to boot the kernel efficiently).
+  Your user must be in the `kvm` group:
+  ```bash
+  sudo usermod -aG kvm $USER
+  newgrp kvm
+  ```
 
-### Arch Linux
+## Build and start the VM
 
-```bash
-pacman -S vagrant libvirt base-devel dnsmasq
-systemctl enable --now libvirtd.service
-```
-
-See the [Arch Linux libvirt tutorial](https://wiki.archlinux.org/title/libvirt) for more details.
-
-### Debian or Ubuntu
-
-```bash
-apt install --no-install-recommends vagrant qemu-utils ruby-libvirt ruby-dev libvirt-daemon-system qemu-system
-```
-
-See the [Debian KVM tutorial](https://wiki.debian.org/KVM) for more details.
-
-### Fedora
-
-```bash
-dnf install vagrant qemu libvirt
-systemctl enable --now virtnetworkd
-```
-
-## Start the VM manager
-
-Start libvirtd if needed:
-```bash
-systemctl start libvirtd.service
-```
-
-We then need to allow the developer (an unprivileged user) to use libvirt thanks to a dedicated group:
-```bash
-usermod -a -G libvirt <user>
-```
-
-This group update will take effect the next time the user logs in.
-Alternatively, the user can update a shell session with:
-```bash
-su $USER
-```
-
-## Create and start the VM
-
-As an **unprivileged user**, clone this repository:
+Clone this repository:
 ```bash
 git clone https://github.com/landlock-lsm/workshop-imagemagick
 cd workshop-imagemagick
 ```
 
-The Vagrant VM provisioning may install 2 vagrant plugins on the host system, other commands are executed in the VM.
-After plugins installation (if any) Vagrant may ask to execute the same command again to proceed the VM configuration:
+Build the container image and start the VM:
 ```bash
-vagrant up
+./run.sh
 ```
 
-If the Vagrant plugin installation failed because of a dependency issue, you might want to run this:
-```bash
-VAGRANT_DISABLE_STRICT_DEPENDENCY_ENFORCEMENT=1 vagrant plugin install --local
-```
-
-This may download a VM image (~330 MB) and packages (~230 MB).
-After the download is complete, it should take less than 4 minutes to install and build the requirements.
+The first run can take a few minutes because it downloads the base container image (~50 MB)
+and packages (~320 MB), and compiles ImageMagick from source.
 It is OK to see a lot of build warnings because the ImageMagick source code is old compared to the build tools.
+Subsequent runs will start the VM almost instantly since the image is cached.
 
-A virbr network interface will be created.
-On most systems this should work as is, but otherwise we may need to allow inbound connections (and routing) from the loopback interface according to host's firewall rules.
-
-## Create a snapshot of the VM
-
-Just in case...
-```bash
-vagrant snapshot push
-```
-
-## Connect to the VM
-
-```bash
-vagrant ssh
-```
+The container boots a Debian Trixie backported kernel (6.18) using virtme-ng,
+which provides full Landlock support including audit.
+The workshop repository is bind-mounted into the VM for live file synchronization.
 
 ## Test the VM
 
-On the VM, run an ImageMagick command to test the attack:
+In the VM, run an ImageMagick command to test the attack:
 ```bash
-convert /vagrant/exploit/malicious.mvg out.png
+convert ~/workshop/exploit/malicious.mvg out.png
 ```
 
 You should see the VM's SSH private key.
 
-On the host system, check if you can copy files from the VM:
+Check the generated image:
 ```bash
-vagrant scp :out.png .
 xdg-open out.png
 ```
 
